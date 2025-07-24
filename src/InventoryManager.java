@@ -82,7 +82,7 @@ public class InventoryManager {
 
       public void saveInventory()
     {
-        try(FileOutputStream fi = new FileOutputStream(data_file)
+        try(FileOutputStream fi = new FileOutputStream(data_file);
         ObjectOutputStream si = new ObjectOutputStream(fi))
         {si.writeObject(inventory);}
         catch (Exception e) {
