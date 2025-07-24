@@ -4,6 +4,7 @@ import java.util.*;
 public class InventoryManager {
     private final List<Product> inventory = new ArrayList<>();
     private final Scanner sc = new Scanner(System.in);
+    private final static String data_file = "inventory.ser";
 
 
     public void addProduct() {
@@ -37,6 +38,7 @@ public class InventoryManager {
         Product p = new Product(name, price, quantity, category);
         inventory.add(p);
         System.out.println("\nProduct added: " + p);
+        saveInventory();
     }
 
     public void deleteProduct(String productId) {
@@ -47,6 +49,7 @@ public class InventoryManager {
                 System.out.println( "" );
                 System.out.println(p);
                 return;
+                saveInventory();
             }
         }
         System.out.println("Product not found.");
@@ -64,6 +67,7 @@ public class InventoryManager {
                 p.setQuantity(newQty);
                 System.out.println("Product updated: " + p);
                 return;
+                saveInventory();
             }
         }
         System.out.println("Product not found.");
@@ -76,8 +80,14 @@ public class InventoryManager {
         }
     }
 
+      public void saveInventory()
+    {
+        try(FileOutputStream fi = new FileOutputStream(data_file)
+        ObjectOutputStream si = new ObjectOutputStream(fi))
+        {si.writeObject(inventory);}
+        catch (Exception e) {
+            System.err.println("error saving inventory");
+                }
+    }
 
-  
-   
-    
 }
