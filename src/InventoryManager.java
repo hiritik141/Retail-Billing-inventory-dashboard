@@ -5,6 +5,11 @@ public class InventoryManager {
     private final List<Product> inventory = new ArrayList<>();
     private final Scanner sc = new Scanner(System.in);
     private final static String data_file = "inventory.ser";
+     public InventoryManager()
+    {
+        loadInventory();
+    }
+
 
 
     public void addProduct() {
@@ -48,8 +53,9 @@ public class InventoryManager {
                 System.out.println("Product deleted: " );
                 System.out.println( "" );
                 System.out.println(p);
-                return;
                 saveInventory();
+                return;
+              
             }
         }
         System.out.println("Product not found.");
@@ -66,8 +72,9 @@ public class InventoryManager {
                 p.setPrice(newPrice);
                 p.setQuantity(newQty);
                 System.out.println("Product updated: " + p);
-                return;
                 saveInventory();
+                return;
+                
             }
         }
         System.out.println("Product not found.");
@@ -88,6 +95,23 @@ public class InventoryManager {
         catch (Exception e) {
             System.err.println("error saving inventory");
                 }
+    }
+
+    public void loadInventory()
+    {
+        File file = new File(data_file);
+        if (!file.exists())
+        {return;}
+        try (FileInputStream fi = new FileInputStream(data_file);
+        ObjectInputStream re = new ObjectInputStream(fi))
+        {
+        List<Product> load_list =  (List<Product>) re.readObject();  
+        inventory.clear();
+        inventory.addAll(load_list);
+    }
+    catch (Exception e) {
+        System.out.println("error loading inventory");
+    }
     }
 
 }
