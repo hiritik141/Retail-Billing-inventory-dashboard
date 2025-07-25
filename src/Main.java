@@ -12,7 +12,9 @@ public class Main {
             System.out.println("2. Delete Product");
             System.out.println("3. Update Product");
             System.out.println("4. View Inventory");
-            System.out.println("5. Exit");
+            System.out.println("5. Item that you want to sell");
+             System.out.println("6. Sold items list");
+            System.out.println("7. Exit");
             System.out.print("Choose an option: ");
             int choice = Integer.parseInt(sc.nextLine());
 
@@ -51,6 +53,24 @@ public class Main {
                 }
 
                 case 5 :
+                {
+                    System.out.print("enter the productID that you are selling ");
+                    String pid = sc.nextLine();
+                    manager.sold_product(pid);
+                    System.out.println("press enter to return to home");
+                    sc.nextLine();
+                    break;
+                }
+                case 6:
+                {
+                    manager.display_sold_product();
+                    System.out.println("press enter to return to home");
+                    sc.nextLine();
+                    break;
+
+                }
+
+                case 7 :
                 {
                     System.out.println("Exiting");
                     return;

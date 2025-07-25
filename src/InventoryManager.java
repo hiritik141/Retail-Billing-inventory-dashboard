@@ -5,6 +5,8 @@ public class InventoryManager {
     private final List<Product> inventory = new ArrayList<>();
     private final Scanner sc = new Scanner(System.in);
     private final static String data_file = "inventory.ser";
+    private final List<Product> sold_items = new ArrayList<>();
+
      public InventoryManager()
     {
         loadInventory();
@@ -86,6 +88,30 @@ public class InventoryManager {
             System.out.println("  - " + p);
         }
     }
+
+     public void sold_product (String productID)
+    {
+        for (Product p : new ArrayList<>(inventory))
+        {
+            if (p.getProductId().equals(productID))
+            {
+            sold_items.add(p);
+            inventory.remove(p);
+            System.out.println("product added to sold list\n"+  p);
+            saveInventory();
+            return;
+            }
+        }
+        System.out.println("invalid product id or product not found");
+    }
+    public void display_sold_product()
+    {
+        for (Product p : sold_items)
+        {
+            System.out.println("     sold products     ");
+            System.out.println(p);
+        }
+    } 
 
       public void saveInventory()
     {
