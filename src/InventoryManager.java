@@ -91,7 +91,10 @@ public class InventoryManager {
     {
         try(FileOutputStream fi = new FileOutputStream(data_file);
         ObjectOutputStream si = new ObjectOutputStream(fi))
-        {si.writeObject(inventory);}
+        {
+            si.writeObject(inventory);
+            si.writeInt(Product.getCounter());
+        }
         catch (Exception e) {
             System.err.println("error saving inventory");
                 }
@@ -108,6 +111,8 @@ public class InventoryManager {
         List<Product> load_list =  (List<Product>) re.readObject();  
         inventory.clear();
         inventory.addAll(load_list);
+        int readCounter = re.readInt();
+        Product.setCounter(readCounter);
     }
     catch (Exception e) {
         System.out.println("error loading inventory");

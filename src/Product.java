@@ -51,6 +51,14 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
+     public static int getCounter() {
+        return count;
+    }
+
+    public static void setCounter(int c) {
+        count = c;
+    }
+
     @Override
     public String toString() {
         return  "\nProduct ID: " + productId + "\nName: " +name +"\nPrice: Rs." + price +"\nQuantity: " + quantity +
