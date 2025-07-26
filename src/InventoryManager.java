@@ -106,9 +106,10 @@ public class InventoryManager {
     }
     public void display_sold_product()
     {
+        System.out.println("     sold products     ");
         for (Product p : sold_items)
         {
-            System.out.println("     sold products     ");
+            
             System.out.println(p);
         }
     } 
@@ -119,7 +120,9 @@ public class InventoryManager {
         ObjectOutputStream si = new ObjectOutputStream(fi))
         {
             si.writeObject(inventory);
+            si.writeObject(sold_items);
             si.writeInt(Product.getCounter());
+
         }
         catch (Exception e) {
             System.err.println("error saving inventory");
@@ -137,8 +140,20 @@ public class InventoryManager {
         List<Product> load_list =  (List<Product>) re.readObject();  
         inventory.clear();
         inventory.addAll(load_list);
+        
+        List<Product> sold_list = (List<Product>) re.readObject();
+        sold_items.clear();
+        sold_items.addAll(sold_list);
+
+        if (inventory.isEmpty() && sold_items.isEmpty())
+        {
+            Product.setCounter(100);
+        }
+        else
+        {
         int readCounter = re.readInt();
         Product.setCounter(readCounter);
+        }
     }
     catch (Exception e) {
         System.out.println("error loading inventory");
