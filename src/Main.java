@@ -56,14 +56,14 @@ public class Main {
                 {
                     
                     manager.sellToCustomer();
-                    System.out.println("press enter to return to home");
+                    System.out.println("\n press enter to return to home");
                     sc.nextLine();
                     break;
                 }
                 case 6:
                 {
                     manager.display_sold_product();
-                    System.out.println("press enter to return to home");
+                    System.out.println("\n press enter to return to home");
                     sc.nextLine();
                     break;
 

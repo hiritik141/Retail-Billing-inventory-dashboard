@@ -16,9 +16,14 @@ public class InventoryManager {
 
 
     public void addProduct() {
+        while (true) {
+            
+        
         System.out.println("\n Add New Product ");
-        System.out.print("Enter product name: ");
+        System.out.print("Enter product name:   (or you can write 'done' if added)  ");
         String name = sc.nextLine();
+        if (name.equalsIgnoreCase("done"))
+        {break;}
 
         System.out.print("Enter price: ");
         double price = sc.nextDouble();
@@ -45,9 +50,16 @@ public class InventoryManager {
 
         Product p = new Product(name, price, quantity, category);
         inventory.add(p);
-        System.out.println("\nProduct added: " + p);
-        saveInventory();
+       
+        
     }
+    saveInventory();
+    System.out.println("\nproduct added\n");
+    for (Product p : inventory)
+    {
+        System.out.println(p.getName());
+    }
+}
 
     public void deleteProduct(String productId) {
         for (Product p : new ArrayList<>(inventory)) {
@@ -99,7 +111,7 @@ public class InventoryManager {
     double totalBill = 0;
 
     while (true) {
-        System.out.print("Enter product ID to sell (or type 'done' to end): ");
+        System.out.print("\nEnter product ID to sell (or type 'done' to end): ");
         String productID = sc.nextLine();
         if (productID.equalsIgnoreCase("done")) break;
 
@@ -122,7 +134,8 @@ public class InventoryManager {
                 }
 
                 
-                Product soldProduct = new Product(
+             Product soldProduct = new Product(
+                    p.getProductId(),
                     p.getName(),
                     p.getPrice(),
                     qtyToSell,
@@ -150,9 +163,12 @@ public class InventoryManager {
     if (!purchasedItems.isEmpty()) {
         Customer customer = new Customer(customerName, purchasedItems, totalBill);
         customerList.add(customer);
-        System.out.println("\nPurchase Summary for " + customerName + "-"+ purchasedItems +": Rs." + totalBill);
-    } else {
-        System.out.println("No products sold.");
+       System.out.println("\nPurchase Summary for " + customerName + ":");
+for (Product p : purchasedItems) {
+    System.out.println(p); 
+}
+System.out.println("\nTotal bill: Rs." + totalBill);
+
     }
 
     saveInventory();

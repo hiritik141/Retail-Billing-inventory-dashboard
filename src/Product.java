@@ -18,6 +18,13 @@ public class Product implements Serializable {
         this.quantity = quantity;
         this.category = category;
     }
+     public Product(String productId, String name, double price, int quantity, Category category) {
+        this.productId= productId;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+    }
 
     public String getProductId() {
         return productId;
