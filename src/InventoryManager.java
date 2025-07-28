@@ -6,6 +6,7 @@ public class InventoryManager {
     private final Scanner sc = new Scanner(System.in);
     private final static String data_file = "inventory.ser";
     private final List<Product> sold_items = new ArrayList<>();
+    private final List<Customer> customerList = new ArrayList<>();
 
      public InventoryManager()
     {
@@ -52,7 +53,7 @@ public class InventoryManager {
         for (Product p : new ArrayList<>(inventory)) {
             if (p.getProductId().equals(productId)) {
                 inventory.remove(p);
-                System.out.println("Product deleted: " );
+                System.out.println("\nProduct deleted: " );
                 System.out.println( "" );
                 System.out.println(p);
                 saveInventory();
@@ -73,7 +74,7 @@ public class InventoryManager {
                 sc.nextLine();
                 p.setPrice(newPrice);
                 p.setQuantity(newQty);
-                System.out.println("Product updated: " + p);
+                System.out.println("\nProduct updated: " + p);
                 saveInventory();
                 return;
                 
@@ -89,24 +90,77 @@ public class InventoryManager {
         }
     }
 
-     public void sold_product (String productID)
-    {
-        for (Product p : new ArrayList<>(inventory))
-        {
-            if (p.getProductId().equals(productID))
-            {
-            sold_items.add(p);
-            inventory.remove(p);
-            System.out.println("product added to sold list\n"+  p);
-            saveInventory();
-            return;
+    public void sellToCustomer() {
+
+    System.out.print("Enter customer name: ");
+    String customerName = sc.nextLine();
+
+    List<Product> purchasedItems = new ArrayList<>();
+    double totalBill = 0;
+
+    while (true) {
+        System.out.print("Enter product ID to sell (or type 'done' to end): ");
+        String productID = sc.nextLine();
+        if (productID.equalsIgnoreCase("done")) break;
+
+        boolean found = false;
+        for (Product p : new ArrayList<>(inventory)) {
+            if (p.getProductId().equals(productID)) {
+                System.out.print("Enter quantity to sell: ");
+                int qtyToSell = Integer.parseInt(sc.nextLine());
+
+                if (qtyToSell <= 0 || qtyToSell > p.getQuantity()) {
+                    System.out.println(" Invalid quantity. Available: " + p.getQuantity());
+                    found = true;
+                    break;
+                }
+
+                
+                p.setQuantity(p.getQuantity() - qtyToSell);
+                if (p.getQuantity() == 0) {
+                    inventory.remove(p);
+                }
+
+                
+                Product soldProduct = new Product(
+                    p.getName(),
+                    p.getPrice(),
+                    qtyToSell,
+                    p.getCategory()
+                );
+                
+
+               
+                sold_items.add(soldProduct);
+                purchasedItems.add(soldProduct);
+                totalBill += p.getPrice() * qtyToSell;
+                
+
+                System.out.println("\nSold: " + soldProduct);
+                found = true;
+                break;
             }
         }
-        System.out.println("invalid product id or product not found");
+
+        if (!found) {
+            System.out.println(" wrong product ID: " + productID);
+        }
     }
+
+    if (!purchasedItems.isEmpty()) {
+        Customer customer = new Customer(customerName, purchasedItems, totalBill);
+        customerList.add(customer);
+        System.out.println("\nPurchase Summary for " + customerName + "-"+ purchasedItems +": Rs." + totalBill);
+    } else {
+        System.out.println("No products sold.");
+    }
+
+    saveInventory();
+}
+
     public void display_sold_product()
     {
-        System.out.println("     sold products     ");
+        System.out.println("\n     sold products     ");
         for (Product p : sold_items)
         {
             

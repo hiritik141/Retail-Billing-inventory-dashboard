@@ -54,9 +54,8 @@ public class Main {
 
                 case 5 :
                 {
-                    System.out.print("enter the productID that you are selling ");
-                    String pid = sc.nextLine();
-                    manager.sold_product(pid);
+                    
+                    manager.sellToCustomer();
                     System.out.println("press enter to return to home");
                     sc.nextLine();
                     break;
