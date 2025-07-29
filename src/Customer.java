@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Customer implements Serializable{
 private String name;
-private static List<Product> purchased_items;
+private final List<Product> purchased_items;
 private double bill;
 
 public Customer(String name,List<Product> purchased_items, double bill) {
@@ -17,7 +17,7 @@ public String getName()
     return name;
 }
 
-public static List<Product> getPurchased_items() {
+public final List<Product> getPurchased_items() {
     return purchased_items;
 }
 
@@ -25,13 +25,18 @@ public double getBill() {
     return bill;
 }
 
-@Override
 public String toString() {
-    return "Customer [name=" + name + ", bill=" + bill + ", items=" + purchased_items +"]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("\ncustomer name: ").append(name).append(":\n");
+        for (Product p : purchased_items) {
+            sb.append(p).append("\n");
+        }
+        sb.append("\nTotal bill: Rs.").append(bill).append("\n");
+        sb.append("--------------------------------------------------------");
+        return sb.toString();
+    }
 }
 
 
 
 
-
-}

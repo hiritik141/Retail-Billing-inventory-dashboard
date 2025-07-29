@@ -182,6 +182,14 @@ System.out.println("\nTotal bill: Rs." + totalBill);
             
             System.out.println(p);
         }
+    }
+    public void display_customer()
+    {
+        System.out.println("\n customer list");
+        for (Customer c : customerList)
+        {
+            System.out.println(c);
+        }
     } 
 
       public void saveInventory()

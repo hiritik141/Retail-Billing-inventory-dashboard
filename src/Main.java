@@ -14,7 +14,8 @@ public class Main {
             System.out.println("4. View Inventory");
             System.out.println("5. Item that you want to sell");
              System.out.println("6. Sold items list");
-            System.out.println("7. Exit");
+             System.out.println("7. customer list");
+            System.out.println("8. Exit");
             System.out.print("Choose an option: ");
             int choice = Integer.parseInt(sc.nextLine());
 
@@ -68,8 +69,16 @@ public class Main {
                     break;
 
                 }
+                case 7:
+                {
+                    manager.display_customer();
+                     System.out.println("\n press enter to return to home");
+                    sc.nextLine();
+                    break;
 
-                case 7 :
+                }
+
+                case 8 :
                 {
                     System.out.println("Exiting");
                     return;
