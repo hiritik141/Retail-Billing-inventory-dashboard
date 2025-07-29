@@ -191,6 +191,7 @@ System.out.println("\nTotal bill: Rs." + totalBill);
         {
             si.writeObject(inventory);
             si.writeObject(sold_items);
+            si.writeObject(customerList);
             si.writeInt(Product.getCounter());
 
         }
@@ -214,6 +215,10 @@ System.out.println("\nTotal bill: Rs." + totalBill);
         List<Product> sold_list = (List<Product>) re.readObject();
         sold_items.clear();
         sold_items.addAll(sold_list);
+
+        List<Customer> customerlistRead = (List<Customer>) re.readObject();
+        customerList.clear();
+        customerList.addAll(customerlistRead);
 
         if (inventory.isEmpty() && sold_items.isEmpty())
         {
